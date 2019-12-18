@@ -126,7 +126,7 @@ def cal_word_rate(word_frequency):
 
 
 # 根据jieba的词性标注符号获取该词性
-def get_characteristic(code):
+def get_flag(code):
 	letter = ['Ag', 'a', 'ad', 'an', 'b', 'c', 'dg', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'Ng', 'n', 'nr',
 			'ns', 'nt', 'nz', 'o', 'p', 'q', 'r', 's', 'tg', 't', 'u', 'vg', 'v', 'vd', 'vn', 'w', 'x', 'y', 'z', 'un']
 	char = ['形语素', '形容词', '副形词', '名形词', '区别词', '连词', '副语素', '副词', '叹词', '方位词', '语素', '前接成分',

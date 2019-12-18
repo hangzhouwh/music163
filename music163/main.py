@@ -26,5 +26,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # execute(["scrapy", "crawl", "csps_lyric"])  # 华语歌手热门五十首歌曲的歌词
 # execute(["scrapy", "crawl", "simi_artist"])  # 相似歌手
 # execute(["scrapy", "crawl", "douyin"])  # 抖音排行榜
-execute(["scrapy", "crawl", "ktv"])  # ktv歌词
+# execute(["scrapy", "crawl", "ktv"])  # ktv歌词
 # execute(["scrapy", "crawl", "douyin_comment"])# 抖音评论
+# execute(["scrapy", "crawl", "comment_king"])
+execute(["scrapy", "crawl", "baidu_award"])

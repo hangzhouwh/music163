@@ -4,13 +4,14 @@
 # @Email: hangzhouwh@gmail.com
 # @File : simi_song_proc.py 
 # @Software: PyCharm
+
 from music163.analysis import lyric_analysis
 from music163.proc.douyin_lyric_proc import make_summary
 from music163.tool import json_tool
 
 
 def wash_111():
-	file = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\simi\\simi_song_lyric.json'
+	file = '../data/csps_lyric/csps_lyrics.json'
 	datas = json_tool.load_json(file)
 
 	# for data in reversed(datas):
@@ -18,11 +19,11 @@ def wash_111():
 	# 	data['song_name'] = data['artist_name']
 	# 	data['artist_name'] = temp
 
-	for data in reversed(datas):
-		cds = ['许嵩', 'G.E.M.邓紫棋', '徐秉龙', '沈以诚', '陈粒', '群星', '蔡健雅', '汪苏泷', '田馥甄', '孙燕姿', '赵方婧',
-			   '王菲', '陈雪凝', '杨千嬅', '任然', 'Beyond', '程佳佳', '杨宗纬', '郭顶', '五月天', '王嘉尔', '房东的猫']
-		if data['artist_name'] in cds:
-			datas.remove(data)
+	# for data in reversed(datas):
+	# 	cds = ['许嵩', 'G.E.M.邓紫棋', '徐秉龙', '沈以诚', '陈粒', '群星', '蔡健雅', '汪苏泷', '田馥甄', '孙燕姿', '赵方婧',
+	# 		   '王菲', '陈雪凝', '杨千嬅', '任然', 'Beyond', '程佳佳', '杨宗纬', '郭顶', '五月天', '王嘉尔', '房东的猫']
+	# 	if data['artist_name'] in cds:
+	# 		datas.remove(data)
 
 	for data in reversed(datas):
 		lyric = data['lyric']
@@ -31,7 +32,7 @@ def wash_111():
 	# 	lyric_list = lyric_analysis.word_spilt(lyric_list)
 	# 	lyric_list = lyric_analysis.filter_stopwords(lyric_list)
 
-	json_tool.write_json(datas, 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\simi\\simi_song_lyric_washed.json')
+	json_tool.write_json(datas, '../data/csps_lyric/csps_lyrics_washed.json')
 
 
 def get_simi_song_summary():

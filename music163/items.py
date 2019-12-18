@@ -82,8 +82,16 @@ class CSPSLyricItem(scrapy.Item):
 
 
 class CommentItem(scrapy.Item):
+    song_id = scrapy.Field()
     song_name = scrapy.Field()
+    artist_id = scrapy.Field()
     artist_name = scrapy.Field()
     total = scrapy.Field()
     content = scrapy.Field()
     like_count = scrapy.Field()
+
+
+class BaikeAwardItem(scrapy.Item):
+    artist_id = scrapy.Field()
+    artist_name = scrapy.Field()
+    awards = scrapy.Field()

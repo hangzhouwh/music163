@@ -4,6 +4,7 @@
 # @Email: hangzhouwh@gmail.com
 # @File : baike_proc.py 
 # @Software: PyCharm
+import operator
 import re
 import pandas as pd
 from music163.proc import lyric_cloudy
@@ -183,6 +184,80 @@ def get_decade(datas):
 	df.to_csv('D:\\WorkSpace\\Pycharm\\music163\\music163\\result\\百科_出生.csv', encoding='utf_8_sig')
 
 
+def get_achievement_size():
+	filepath = '../data/baike/baike_chinese_ar_clean.json'
+	datas = json_tool.load_json(filepath)
+	print(len(datas))
+	for data in reversed(datas):
+		attr_name = data['attr_name']
+		if '主要成就' not in attr_name:
+			datas.remove(data)
+
+	achievements = []
+	count = {}
+	for data in datas:
+		artist_id = data['artist_id']
+		artist_name = data['artist_name']
+		attr_name = data['attr_name']
+		attr_value = data['attr_value']
+		idx = attr_name.index('主要成就')
+		achievement_list = attr_value[idx]
+		achievements.extend(achievement_list)
+		count[artist_name] = len(achievement_list)
+
+	count = sorted(count.items(), key=operator.itemgetter(1), reverse=True)
+
+	person = []
+	cnt = []
+	for x in count:
+		person.append(x[0])
+		cnt.append(x[1])
+
+	df = pd.DataFrame([person, cnt], index=['歌手', '主要成就数量'])
+	df = pd.DataFrame(df.values.T, index=df.columns, columns=df.index)
+	df.to_csv('D:\\WorkSpace\\Pycharm\\music163\\music163\\result\\歌手主要成就数量.csv', encoding='utf_8_sig')
+
+def get_ctbma():
+	filepath = '../data/baike/baike_chinese_ar_clean.json'
+	datas = json_tool.load_json(filepath)
+	print(len(datas))
+	for data in reversed(datas):
+		attr_name = data['attr_name']
+		if '主要成就' not in attr_name:
+			datas.remove(data)
+
+	Chinese_Three_Big_Movie_Awards = ['中国电影金鸡奖', '香港电影金像奖', '中国电影金鸡奖']
+	ctbma_artist = []
+	ctbma_artist_ac = []
+	ctbma_size = []
+	achievements = []
+	count = {}
+	for data in datas:
+		artist_id = data['artist_id']
+		artist_name = data['artist_name']
+		attr_name = data['attr_name']
+		attr_value = data['attr_value']
+		idx = attr_name.index('主要成就')
+		achievement_list = attr_value[idx]
+		cnt = 0
+		for award in Chinese_Three_Big_Movie_Awards:
+			for achievement in achievement_list:
+				if award in achievement and artist_name not in ctbma_artist:
+					cnt += 1
+					ctbma_artist.append(artist_name)
+					ctbma_artist_ac.append(achievement_list)
+					break
+				elif award in achievement:
+					cnt += 1
+					break
+		if cnt > 0:
+			ctbma_size.append(cnt)
+
+	df = pd.DataFrame([ctbma_artist, ctbma_size], index=['歌手', '华语三大电影奖获得数量'])
+	df = pd.DataFrame(df.values.T, index=df.columns, columns=df.index)
+	df.to_csv('D:\\WorkSpace\\Pycharm\\music163\\music163\\result\\华语三大电影奖获得数量.csv', encoding='utf_8_sig')
+
+
 if __name__ == "__main__":
 	# artist_name  # 中文名
 	# nationality  # 国籍 √
@@ -190,7 +265,38 @@ if __name__ == "__main__":
 	# birthday  # 出生日期
 	# IBEC  # 经纪公司 √
 	# university  # 毕业院校 √
-
-	filepath = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\baike_chinese_ar_clean.json'
+	filepath = '../data/baike/baike_chinese_ar_clean.json'
 	datas = json_tool.load_json(filepath)
-	get_decade(datas)
+	print(len(datas))
+	for data in reversed(datas):
+		attr_name = data['attr_name']
+		if '主要成就' not in attr_name:
+			datas.remove(data)
+
+	Golden_Melody_Awards_artist = []
+	achievements = []
+	for data in datas:
+		flag = 0
+		artist_id = data['artist_id']
+		artist_name = data['artist_name']
+		attr_name = data['attr_name']
+		attr_value = data['attr_value']
+		idx = attr_name.index('主要成就')
+		achievement_list = attr_value[idx]
+		for achievement in achievement_list:
+			if "金曲奖" in achievement:
+				Golden_Melody_Awards_artist.append(artist_name)
+				flag = 1
+				break
+		if flag == 1:
+			achievements.append(achievement_list)
+
+	acs = []
+	for achievement in achievements:
+		ac = ','.join(achievement)
+		acs.append(ac)
+
+	df = pd.DataFrame([Golden_Melody_Awards_artist, acs], index=['歌手', '华语三大电影奖获得数量'])
+	df = pd.DataFrame(df.values.T, index=df.columns, columns=df.index)
+	df.to_csv('D:\\WorkSpace\\Pycharm\\music163\\music163\\result\\金曲奖获得者.csv', encoding='utf_8_sig')
+
