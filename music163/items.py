@@ -78,6 +78,7 @@ class CSPSLyricItem(scrapy.Item):
     song_name = scrapy.Field()
     artist_name = scrapy.Field()
     lyric = scrapy.Field()
+    song_id = scrapy.Field()
 
 
 class CommentItem(scrapy.Item):

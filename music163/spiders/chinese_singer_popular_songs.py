@@ -23,19 +23,21 @@ class ChineseSingerPopularSongsSpider(scrapy.Spider):
 
 	def start_requests(self):
 
-		files = [1001, 1002, 1003]  # 华语男歌手 华语女歌手 华语组合
-		path_head = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\artist\\'
+		# files = [1001, 1002, 1003]  # 华语男歌手 华语女歌手 华语组合
+		# path_head = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\artist\\'
+		file = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\rank_list\\热门歌手xxx.json'
 		url_head = 'http://localhost:3000'
-		for file in files:
-			filepath = path_head + 'artist_' + str(file) + '.json'
-			print(filepath)
-			artists = json_tool.load_json(filepath)
-			for artist in artists:
-				artist_id = artist['artist_id']
-				artist_name = artist['artist_name']
-				url = url_head + '/artist/top/song?id=' + str(artist_id)
-				yield scrapy.Request(url=url, meta={'artist_id': artist_id, 'artist_name': artist_name},
-									 dont_filter=False)
+		# for file in files:
+		# filepath = path_head + 'artist_' + str(file) + '.json'
+		# print(filepath)
+		res = json_tool.load_json(file)
+		artists = res['artists']
+		for artist in artists:
+			artist_id = artist['id']
+			artist_name = artist['name']
+			url = url_head + '/artist/top/song?id=' + str(artist_id)
+			yield scrapy.Request(url=url, meta={'artist_id': artist_id, 'artist_name': artist_name},
+								 dont_filter=False)
 
 	def parse(self, response):
 		global singer_count, song_count

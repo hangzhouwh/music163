@@ -23,19 +23,20 @@ class SongLyricSpider(scrapy.Spider):
 
     def start_requests(self):
         file_count = 0
-        files = file_tool.eachFile('D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\song\\')
-        for file in files:
-            print("-------------这是第 ", file_count, " songfile-------------")
-            file_count = file_count + 1
-            song_data = json_tool.load_json(file)
-            # time.sleep(10)
-            for song in song_data:
-                song_id = song["song_id"]
+        # files = file_tool.eachFile('D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\song\\')
+        # for file in files:
+        #     print("-------------这是第 ", file_count, " songfile-------------")
+        #     file_count = file_count + 1
+        file = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\simi\\simi_song.json'
+        song_data = json_tool.load_json(file)
+        # time.sleep(10)
+        for song in song_data:
+            song_id = song["song_id"]
 
-                url = 'http://localhost:3000/lyric?' + 'id=' + str(song_id)
-                # url = 'http://localhost:3000/lyric?' + 'id=' + str(song_id) + '&proxy=http://' + getproxies()
+            url = 'http://localhost:3000/lyric?' + 'id=' + str(song_id)
+            # url = 'http://localhost:3000/lyric?' + 'id=' + str(song_id) + '&proxy=http://' + getproxies()
 
-                yield scrapy.Request(url=url, dont_filter=False)
+            yield scrapy.Request(url=url, dont_filter=False)
 
     def parse(self, response):
         global song_count

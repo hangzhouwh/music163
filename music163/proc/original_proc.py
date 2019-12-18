@@ -7,6 +7,7 @@
 
 import jieba.posseg as pseg
 
+from music163.analysis import lyric_analysis
 from music163.tool import json_tool
 words =pseg.cut("我爱北京天安门")
 for w in words:
@@ -14,6 +15,12 @@ for w in words:
 
 
 file = 'D:\\WorkSpace\\Pycharm\\music163\\music163\\data\\rank_list_data\\original_lyric.json'
-data = json_tool.load_json(file)
+songs = json_tool.load_json(file)
+for song in songs:
+	lyric = song['lyric']
+	lyric_list = lyric_analysis.wash(lyric)
+	lyric = '.'.join(lyric_list)
+
+print(1)
 
 
