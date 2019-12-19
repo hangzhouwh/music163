@@ -118,7 +118,7 @@ class MysqlTwistedPipeline(object):
 class JsonExporterPipleline(object):
     def __init__(self):
         # wb代表二进制文件
-        self.file = open('./data_zero/comment_king_cotent.json', 'wb')
+        self.file = open('./data_zero/baike_awards_dirty.json', 'wb')
         # ensure_ascii=False 保证中文不出现问题
         # 需要传递exporter，并且需要使用JsonItemExporter进行实例化
         self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)

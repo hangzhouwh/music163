@@ -4,6 +4,7 @@
 # @Email: hangzhouwh@gmail.com
 # @File : simi_analysis.py 
 # @Software: PyCharm
+import json
 import re
 
 import jieba
@@ -29,10 +30,10 @@ from music163.tool import json_tool
 13. 得到最终相似度结果
 """
 
-file_test = '../data/simi/simi_song_lyric_washed.json'
+file_test = '../data/simi/simi_song_lyric_washed1.json'
 datas_test = json_tool.load_json(file_test)
 
-file_all = '../data/simi/csps_lyrics_washerd.json'
+file_all = '../data/simi/csps_lyric  s_washerd.json'
 datas_all = json_tool.load_json(file_all)
 
 
@@ -97,7 +98,7 @@ for data in datas_test:
 		# if cnt == 1: # 需要去掉本身,后面再清洗叭
 		# 	continue
 		idx = sim_iteration[0]
-		prop = sim_iteration[1]
+		prop = float(sim_iteration[1])
 		target = datas_all[idx]
 		sim_song_name = target['song_name']
 		sim_artist_name = target['artist_name']

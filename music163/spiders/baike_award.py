@@ -73,15 +73,14 @@ class BaiduAwardSpider(scrapy.Spider):
 		location = 0
 		for i in range(len(awards)):
 			if '（' in awards[i] and '）' in awards[i]:
-				new_str = ''.join(awards[location: i+1])
+				new_str = ' '.join(awards[location: i+1])
 				location = i + 1
 				award_proced.append(new_str)
 
 		awds = []
-		if len(award_proced) == len(years):
-			for i in range(len(award_proced)):
-				x = years[i] + award_proced[i]
-				awds.append(x)
+		for i in range(len(award_proced)):
+			x = years[i] + ': ' + award_proced[i]
+			awds.append(x)
 
 		item = BaikeAwardItem()
 		item['artist_id'] = artist_id
